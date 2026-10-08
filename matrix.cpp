@@ -1,17 +1,17 @@
 #include <iostream>
 #include <new>
 
-int** createMatrix(int rows, int cols) {
+int** createMatrix(size_t rows, size_t cols) {
 	int** grid = new (std::nothrow) int*([rows];
 	if(grid == nullptr) {
 		return nullptr;
 	}
 
-	int i = 0;
+	size_t i = 0;
 	while (i < rows) {
 		grid[i] = new (std::nothrow) int[cols];
 		if (grid[i] == nullptr) {
-			int j =0;
+			size_t j =0;
 			while (j < i) {
 				delete[] grid[j];
 				j++;
@@ -24,17 +24,17 @@ int** createMatrix(int rows, int cols) {
 	return grid;
 }
 
-void destroyMatrix(int** grid, int rows) {
+void destroyMatrix(int** grid, size_t rows) {
 	if (grid == nullptr) return;
 
-	for (int i = 0; i < rows; i++) {
+	for (size_t i = 0; i < rows; i++) {
 		delete[] grid[i];
 	}
 	delete[] grid;
 }
 
 int main() {
-	int rows, cols;
+	size_t rows, cols;
 
 	std::cout << "Введите количество строк (m) и столбцов (n):";
 	if (!(std::cin >> rows >> cols)) {
@@ -51,8 +51,8 @@ int main() {
 	}
 
 	std::cout << "Введите элементы матрицы (" << rows << "x" << cols << ");" << std::endl;
-	for (int i = 0; i < rows; i++) {
-		for (int j = 0; j < cols; j++) {
+	for (size_t i = 0; i < rows; i++) {
+		for (size_t j = 0; j < cols; j++) {
 			if (!(std::cin >> matrix[i][j])) {
 				destroyMatrix(matrix, rows);
 				return 1;
@@ -61,9 +61,9 @@ int main() {
 	}
 
 	std::cout << "Транспонированная матрица (" << cols << "x" << rows << "):" << std::endl;
-	int j = 0;
+	size_t j = 0;
 	while (j < cols) {
-		int i = 0;
+		size_t i = 0;
 		while (i < rows) {
 			std::cout << matrix[i][j];
 			if (i < rows - 1) {
